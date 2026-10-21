@@ -1,1 +1,190 @@
 @import 'tailwindcss';
+@import '@fontsource/poppins/latin-400.css';
+@import '@fontsource/poppins/latin-500.css';
+@import '@fontsource/poppins/latin-600.css';
+@import '@fontsource/inter-tight/latin-600.css';
+@import '@fontsource/inter-tight/latin-700.css';
+
+/* ---------------------------------------------------------------
+   Identidade visual SKIPP (mesmos tokens do site skipp-react)
+   Cada --color-x vira classes do Tailwind: bg-x, text-x, border-x...
+---------------------------------------------------------------- */
+@theme {
+  --color-ink: #130b11;
+  --color-night: #111111;
+  --color-surface: #1c141e;
+  --color-surface-2: #251b28;
+  --color-surface-3: #2f2433;
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-line-strong: rgb(255 255 255 / 0.16);
+
+  --color-roxo: #5900b3;
+  --color-magenta: #960086;
+  --color-pink: #c50097;
+  --color-neon: #fa15e5;
+
+  --color-heading: #ffffff;
+  --color-muted: #b9a9be;
+  --color-subtle: #8b7a90;
+
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  --font-title: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  --animate-fade-in: fade-in 0.25s ease-out;
+  --animate-slide-in: slide-in 0.25s ease-out;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes slide-in {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: none;
+    }
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    min-height: 100vh;
+    background-color: var(--color-ink);
+    color: var(--color-heading);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-title);
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background-color: var(--color-pink);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-neon);
+    outline-offset: 2px;
+  }
+
+  /* Ícone do calendário nativo do input de data visível no tema escuro */
+  input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(0.8);
+    cursor: pointer;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--color-roxo), var(--color-pink)) border-box;
+    background-clip: padding-box;
+  }
+
+  @supports not selector(::-webkit-scrollbar) {
+    * {
+      scrollbar-color: var(--color-pink) transparent;
+      scrollbar-width: thin;
+    }
+  }
+
+  dialog::backdrop {
+    background: rgb(10 5 9 / 0.7);
+    backdrop-filter: blur(4px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Gradiente principal da marca (botões de ação) */
+@utility bg-brand {
+  background-image: linear-gradient(90deg, var(--color-roxo) 0%, var(--color-magenta) 100%);
+}
+
+/* Texto com o degradê neon (destaques) */
+@utility text-brand-gradient {
+  background: linear-gradient(90deg, #922fb1 0%, var(--color-neon) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Card de vidro roxo/magenta, usado com moderação (login, destaques) */
+@utility glass-card {
+  border: 1px solid rgb(250 21 229 / 0.35);
+  background: linear-gradient(69deg, rgb(91 0 178 / 0.08) 9%, rgb(250 21 229 / 0.18) 98%);
+  box-shadow:
+    inset 0 4px 8px rgb(255 255 255 / 0.07),
+    inset 0 -4px 8px rgb(255 255 255 / 0.02);
+  backdrop-filter: blur(14px);
+}
+
+/* ---------------------------------------------------------------
+   FullCalendar (tema "classic" recolorido com a paleta SKIPP)
+---------------------------------------------------------------- */
+.skipp-calendar {
+  --fc-classic-button: var(--color-surface-2);
+  --fc-classic-button-border: var(--color-line-strong);
+  --fc-classic-button-strong: var(--color-roxo);
+  --fc-classic-button-strong-border: var(--color-roxo);
+  --fc-classic-button-outline: rgb(250 21 229 / 0.5);
+  --fc-classic-button-foreground: #fff;
+  --fc-classic-primary: var(--color-roxo);
+  --fc-classic-primary-foreground: #fff;
+  --fc-classic-event: var(--color-roxo);
+  --fc-classic-event-contrast: #fff;
+  --fc-classic-background-event: var(--color-pink);
+  --fc-classic-background-event-opacity: 15%;
+  --fc-classic-background-event-foreground-opacity: 50%;
+  --fc-classic-highlight: rgb(250 21 229 / 0.12);
+  --fc-classic-today: rgb(89 0 179 / 0.18);
+  --fc-classic-now: var(--color-neon);
+  --fc-classic-small-dot-width: 8px;
+  --fc-classic-large-dot-width: 10px;
+  --fc-classic-background: transparent;
+  --fc-classic-faint: rgb(255 255 255 / 0.03);
+  --fc-classic-muted: rgb(255 255 255 / 0.06);
+  --fc-classic-strong: rgb(255 255 255 / 0.12);
+  --fc-classic-foreground: #fff;
+  --fc-classic-faint-foreground: var(--color-subtle);
+  --fc-classic-muted-foreground: var(--color-muted);
+  --fc-classic-border: var(--color-line);
+  --fc-classic-strong-border: var(--color-line-strong);
+  font-size: 0.875rem;
+}
