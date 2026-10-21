@@ -1,0 +1,11 @@
+/* Estilos globais mínimos. Serão substituídos pelo Tailwind na Tarefa 2.2. */
+body {
+  margin: 0;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  background: #130b11;
+  color: #ffffff;
+}
+
+main {
+  padding: 2rem;
+}
